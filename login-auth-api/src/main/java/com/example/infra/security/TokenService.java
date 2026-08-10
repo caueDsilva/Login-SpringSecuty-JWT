@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.domain.user.User;
 
 @Service
@@ -25,7 +26,7 @@ public class TokenService {
             String token = JWT.create().
             withIssuer("login-auth-api").
             withSubject(user.getId()).
-            withExpiresAt(generateExpirationDate()).
+            withExpiresAt(this.generateExpirationDate()).
             sign(algorithm);
 
             return token;
@@ -35,6 +36,14 @@ public class TokenService {
             //sign(algorithm) -> assina o token com o algoritmo e a chave secreta.
         } catch (JWTCreationException e) {
             throw new RuntimeException("Error generating token", e);
+        }
+    }
+
+    private String valdiadeteToken(String token){
+        try{
+
+        } catch (JWTVerificationException e) {
+            return null;
         }
     }
 
