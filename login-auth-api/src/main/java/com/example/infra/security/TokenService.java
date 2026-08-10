@@ -39,8 +39,12 @@ public class TokenService {
         }
     }
 
-    private String valdiadeteToken(String token){
+    private String validateToken(String token){
+
+        //verifica se o token é válido, se não for lança uma exceção.
         try{
+            Algorithm algorithm = Algorithm.HMAC256(secret);
+            return JWT.require(algorithm).withIssuer("login-auth-api").build().verify(token).getSubject();
 
         } catch (JWTVerificationException e) {
             return null;
