@@ -39,7 +39,7 @@ public class TokenService {
         }
     }
 
-    private String validateToken(String token){
+    public String validateToken(String token){
 
         //verifica se o token é válido, se não for lança uma exceção.
         try{
