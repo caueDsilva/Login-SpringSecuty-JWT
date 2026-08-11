@@ -28,6 +28,9 @@ public class SecurityFilter extends OncePerRequestFilter {
     @Autowired
     UserRepository userRepository;
 
+
+    // doFilterInternal é o método que vai ser chamado para cada requisição, ele vai verificar se o token é válido e se for, vai setar o usuário 
+    // no contexto de segurança.
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         
@@ -43,6 +46,8 @@ public class SecurityFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    // recoverToken é o método que vai recuperar o token do header da requisição, ele vai verificar se o header 
+    // Authorization existe e se ele começa com "Bearer ", se sim, ele vai retornar o token, se não, ele vai retornar null.
     private String recoverToken(HttpServletRequest request){
         var authHeader =  request.getHeader("Authorization");
         if(authHeader == null || authHeader.isEmpty()){
